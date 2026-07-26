@@ -49,7 +49,6 @@ from settings_store import load_settings, update_settings
 
 
 def _pick_ui_font_family() -> str:
-    # Windows-only product
     candidates = (
         "Microsoft JhengHei UI",
         "Microsoft JhengHei",
@@ -1025,7 +1024,6 @@ class BackupApp(ctk.CTk):
             self._worker_loop = None
 
             def worker() -> None:
-                # Windows SelectorEventLoop works well with aiohttp / discord.py
                 try:
                     loop = asyncio.SelectorEventLoop()  # type: ignore[attr-defined]
                 except Exception:  # noqa: BLE001
@@ -1247,19 +1245,15 @@ class BackupApp(ctk.CTk):
 def _require_windows() -> None:
     if sys.platform == "win32":
         return
-    msg = (
-        "This application supports Windows only.\n"
-        "macOS and Linux are not supported."
-    )
+    msg = "Please run this app on Windows."
     print(msg, file=sys.stderr)
     try:
-        # May fail if no display; ignore
         import tkinter as _tk
         from tkinter import messagebox as _mb
 
         _r = _tk.Tk()
         _r.withdraw()
-        _mb.showerror("Unsupported OS", msg)
+        _mb.showerror("Discord Bot Media Downloader", msg)
         _r.destroy()
     except Exception:  # noqa: BLE001
         pass

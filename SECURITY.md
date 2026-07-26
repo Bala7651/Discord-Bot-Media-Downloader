@@ -11,10 +11,6 @@
 
 - Prefer **Reset Token** in the Discord Developer Portal if a token may have leaked.
 
-## Platform
-
-Designed for **Windows**. Local data path examples below assume Windows.
-
 ## What this tool does
 
 Uses the official Discord **Bot API** only. Do not use user-account tokens (self-bots); that violates Discord’s Terms of Service and risks account termination.

@@ -1,10 +1,4 @@
-"""
-已存 Bot 清單（含 Token 加密儲存）。
-
-- Windows：優先使用 DPAPI（僅目前 Windows 使用者可解密）
-- 其他平台：Fernet 金鑰檔（權限盡量收斂）
-- 刪除時覆寫清除，不留下明文 Token 殘留
-"""
+"""Saved bot list with encrypted tokens (local user data only)."""
 
 from __future__ import annotations
 
