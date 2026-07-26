@@ -8,9 +8,8 @@ token*
 *token*.txt
 *credentials*
 
-# App data is stored under the user home directory, not this repo:
-#   %USERPROFILE%\.discord_channel_backup\   (Windows)
-#   ~/.discord_channel_backup/               (macOS/Linux)
+# App data lives under user home (Windows-only product):
+#   %USERPROFILE%\.discord_channel_backup\
 # Still ignore if someone copies it here by mistake:
 .discord_channel_backup/
 bots.enc.json
