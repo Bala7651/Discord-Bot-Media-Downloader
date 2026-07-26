@@ -1,5 +1,8 @@
 # Discord Bot Media Downloader
 
+So me myself when I search for any online discord downloader I dont see any which is 2026 made. So I just asked my almost expired Grok to build one simple one so I can download lots of my archives incase.
+anything below is made by AI so if there is any mistake Im sorry.if there is any feature or any changes in the future you can ask me too, but my subscription is going out soon so...
+---------------------------------------------------------------------------------------------------------------------------
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%20only-blue.svg)](#platform-support)
