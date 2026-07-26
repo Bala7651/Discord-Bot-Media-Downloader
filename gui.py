@@ -354,7 +354,7 @@ class BackupApp(ctk.CTk):
         ctk.set_default_color_theme("blue")
 
         self.settings = load_settings()
-        lang = self.settings.get("language") or LANG_ZH
+        lang = self.settings.get("language") or LANG_EN
         set_lang(lang)
 
         self.fonts = AppFonts.reset()

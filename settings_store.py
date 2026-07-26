@@ -21,7 +21,7 @@ DEFAULTS: dict[str, Any] = {
     "delay_download_sec": 0.0,
     "delay_message_sec": 0.0,
     "delay_channel_sec": 0.0,
-    "language": "zh-TW",
+    "language": "en",
     "last_bot_id": "",
 }
 

@@ -356,7 +356,7 @@ NAMING_LABELS: dict[str, dict[str, tuple[str, str]]] = {
     },
 }
 
-_current_lang = LANG_ZH
+_current_lang = LANG_EN
 
 
 def get_lang() -> str:
@@ -366,15 +366,15 @@ def get_lang() -> str:
 def set_lang(lang: str) -> str:
     global _current_lang
     if lang not in SUPPORTED_LANGS:
-        lang = LANG_ZH
+        lang = LANG_EN
     _current_lang = lang
     return _current_lang
 
 
 def t(msg_id: str, **kwargs: Any) -> str:
-    """取翻譯字串。msg_id 為字串鍵；kwargs 供 .format 使用（勿使用參數名 msg_id）。"""
+    """Look up UI string. kwargs are for str.format (do not pass msg_id as kwarg)."""
     entry = STRINGS.get(msg_id) or {}
-    text = entry.get(_current_lang) or entry.get(LANG_ZH) or msg_id
+    text = entry.get(_current_lang) or entry.get(LANG_EN) or entry.get(LANG_ZH) or msg_id
     if kwargs:
         try:
             return text.format(**kwargs)
@@ -385,20 +385,20 @@ def t(msg_id: str, **kwargs: Any) -> str:
 
 def naming_option_label(scheme_key: str) -> str:
     block = NAMING_LABELS.get(scheme_key) or NAMING_LABELS["full"]
-    title, desc = block.get(_current_lang) or block[LANG_ZH]
+    title, desc = block.get(_current_lang) or block.get(LANG_EN) or block[LANG_ZH]
     return f"{title}（{desc}）" if _current_lang == LANG_ZH else f"{title} ({desc})"
 
 
 def tutorial_steps() -> list[dict[str, Any]]:
-    """依目前語言展開教學步驟。"""
+    """Expand tutorial steps for the current language (default English)."""
     out = []
     for step in TUTORIAL:
-        title = step["title"].get(_current_lang) or step["title"][LANG_ZH]
-        body = step["body"].get(_current_lang) or step["body"][LANG_ZH]
+        title = step["title"].get(_current_lang) or step["title"].get(LANG_EN) or step["title"][LANG_ZH]
+        body = step["body"].get(_current_lang) or step["body"].get(LANG_EN) or step["body"][LANG_ZH]
         ll = step.get("link_label") or {}
         link_label = ll.get(_current_lang) if isinstance(ll, dict) else None
         if isinstance(ll, dict) and not link_label:
-            link_label = ll.get(LANG_ZH)
+            link_label = ll.get(LANG_EN) or ll.get(LANG_ZH)
         out.append(
             {
                 "title": title,
