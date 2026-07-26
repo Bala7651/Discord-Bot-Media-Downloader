@@ -5,9 +5,36 @@
 
 Backup Discord channel / thread **history + attachments** with **Python + discord.py**.
 
-GUI (CustomTkinter) · CLI · **繁體中文 / English** · multi-channel batch · media folders · naming schemes · manual rate delays.
-
 > **Bot Token only** (official Bot API). Do **not** use user tokens / self-bots (against Discord ToS).
+
+---
+
+## ⭐ 一般使用者：下載後怎麼用（Windows）
+
+GitHub 上的檔案**就是程式**（會看到很多文字／程式碼是正常的）。  
+你不是在網頁上「開啟 App」，而是**下載整包 → 解壓 → 雙擊 bat**。
+
+### 步驟
+
+1. **下載 ZIP**  
+   - 打開本倉庫頁面 → 綠色 **Code** → **Download ZIP**  
+   - 或：[使用說明_下載後請看.md](./使用說明_下載後請看.md)
+2. **解壓縮**到任意資料夾（整包解壓，不要只拿一個檔）
+3. 安裝 [Python 3.10+](https://www.python.org/downloads/)，勾選 **Add python.exe to PATH**
+4. 雙擊資料夾裡的 **`run_gui.bat`**  
+   - 第一次會自動安裝套件（1～3 分鐘）  
+   - 之後跳出圖形介面
+5. 依教學貼上 Bot Token、Channel ID，開始備份
+
+> 不需要會寫程式。不需要把 `.venv` 下載下來（bat 會自動建立）。
+
+### 作者打包給朋友（離線 ZIP）
+
+雙擊專案內 **`打包給別人用.bat`**，會產生  
+`Discord-Bot-Media-Downloader-portable.zip`（不含 .venv）。  
+可把這個 ZIP 傳給別人，或上傳到 GitHub → **Releases**。
+
+---
 
 ## 功能一覽
 

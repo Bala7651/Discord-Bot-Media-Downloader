@@ -27,6 +27,9 @@ gui_crash.log
 gui_stderr.txt
 gui_stdout.txt
 *.part
+_release/
+*-portable.zip
+Discord-Bot-Media-Downloader-portable.zip
 
 # --- Python ---
 .venv/
