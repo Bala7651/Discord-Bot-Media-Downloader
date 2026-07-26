@@ -49,19 +49,15 @@ from settings_store import load_settings, update_settings
 
 
 def _pick_ui_font_family() -> str:
-    if sys.platform == "win32":
-        candidates = (
-            "Microsoft JhengHei UI",
-            "Microsoft JhengHei",
-            "Microsoft YaHei UI",
-            "Microsoft YaHei",
-            "Segoe UI",
-            "Arial",
-        )
-    elif sys.platform == "darwin":
-        candidates = ("PingFang TC", "PingFang HK", "Heiti TC", "Helvetica Neue", "Arial")
-    else:
-        candidates = ("Noto Sans CJK TC", "DejaVu Sans", "Sans")
+    # Windows-only product
+    candidates = (
+        "Microsoft JhengHei UI",
+        "Microsoft JhengHei",
+        "Microsoft YaHei UI",
+        "Microsoft YaHei",
+        "Segoe UI",
+        "Arial",
+    )
     try:
         available = {name.lower() for name in tkfont.families()}
     except Exception:  # noqa: BLE001
@@ -73,12 +69,7 @@ def _pick_ui_font_family() -> str:
 
 
 def _pick_mono_font_family(ui_family: str) -> str:
-    if sys.platform == "win32":
-        candidates = ("Cascadia Mono", "Consolas", "Courier New")
-    elif sys.platform == "darwin":
-        candidates = ("Menlo", "Monaco", "Courier New")
-    else:
-        candidates = ("DejaVu Sans Mono", "monospace")
+    candidates = ("Cascadia Mono", "Consolas", "Courier New")
     try:
         available = {name.lower() for name in tkfont.families()}
     except Exception:  # noqa: BLE001
@@ -848,18 +839,9 @@ class BackupApp(ctk.CTk):
         path = Path(self.output_var.get()).expanduser()
         path.mkdir(parents=True, exist_ok=True)
         try:
-            if sys.platform == "win32":
-                import os
+            import os
 
-                os.startfile(path)  # type: ignore[attr-defined]
-            elif sys.platform == "darwin":
-                import subprocess
-
-                subprocess.run(["open", str(path)], check=False)
-            else:
-                import subprocess
-
-                subprocess.run(["xdg-open", str(path)], check=False)
+            os.startfile(path)  # type: ignore[attr-defined]
         except Exception as exc:  # noqa: BLE001
             messagebox.showerror(t("error"), t("open_folder_fail", e=exc))
 
@@ -867,12 +849,9 @@ class BackupApp(ctk.CTk):
         readme = Path(__file__).resolve().parent / "README.md"
         if readme.exists():
             try:
-                if sys.platform == "win32":
-                    import os
+                import os
 
-                    os.startfile(readme)  # type: ignore[attr-defined]
-                else:
-                    webbrowser.open(readme.as_uri())
+                os.startfile(readme)  # type: ignore[attr-defined]
             except Exception:  # noqa: BLE001
                 webbrowser.open(readme.as_uri())
         else:
@@ -1046,12 +1025,9 @@ class BackupApp(ctk.CTk):
             self._worker_loop = None
 
             def worker() -> None:
-                # Windows：Selector loop 與 aiohttp/discord.py 相容較好
+                # Windows SelectorEventLoop works well with aiohttp / discord.py
                 try:
-                    if sys.platform == "win32":
-                        loop = asyncio.SelectorEventLoop()  # type: ignore[attr-defined]
-                    else:
-                        loop = asyncio.new_event_loop()
+                    loop = asyncio.SelectorEventLoop()  # type: ignore[attr-defined]
                 except Exception:  # noqa: BLE001
                     loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)
@@ -1268,7 +1244,30 @@ class BackupApp(ctk.CTk):
         self.destroy()
 
 
+def _require_windows() -> None:
+    if sys.platform == "win32":
+        return
+    msg = (
+        "This application supports Windows only.\n"
+        "macOS and Linux are not supported."
+    )
+    print(msg, file=sys.stderr)
+    try:
+        # May fail if no display; ignore
+        import tkinter as _tk
+        from tkinter import messagebox as _mb
+
+        _r = _tk.Tk()
+        _r.withdraw()
+        _mb.showerror("Unsupported OS", msg)
+        _r.destroy()
+    except Exception:  # noqa: BLE001
+        pass
+    raise SystemExit(1)
+
+
 def main() -> None:
+    _require_windows()
     try:
         app = BackupApp()
         app.mainloop()

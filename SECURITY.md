@@ -6,11 +6,14 @@
 - Tokens belong only on your machine. This app may store encrypted tokens under:
 
   - Windows: `%USERPROFILE%\.discord_channel_backup\`
-  - macOS/Linux: `~/.discord_channel_backup/`
 
   That directory is **outside** this repository and must not be copied into a public repo.
 
 - Prefer **Reset Token** in the Discord Developer Portal if a token may have leaked.
+
+## Platform
+
+This tool is **Windows-only**. macOS and Linux are not supported.
 
 ## What this tool does
 

@@ -304,10 +304,16 @@ async def async_main(argv: Optional[list[str]] = None) -> int:
 
 
 def main() -> None:
+    if sys.platform != "win32":
+        print(
+            "This tool supports Windows only. macOS and Linux are not supported.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
     try:
         code = asyncio.run(async_main())
     except KeyboardInterrupt:
-        print("\n已中斷。", file=sys.stderr)
+        print("\nInterrupted.", file=sys.stderr)
         code = 1
     sys.exit(code)
 
