@@ -13,7 +13,7 @@
 
 ## Platform
 
-This tool is **Windows-only**. macOS and Linux are not supported.
+Designed for **Windows**. Local data path examples below assume Windows.
 
 ## What this tool does
 

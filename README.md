@@ -5,39 +5,28 @@ anything below is made by AI so if there is any mistake Im sorry.if there is any
 ---------------------------------------------------------------------------------------------------------------------------
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20only-blue.svg)](#platform-support)
+[![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-blue.svg)](#quick-start)
 
-Backup **Discord channel / thread history and attachments** with the official **Bot API** (Python + discord.py).
+Backup **Discord channel / thread history and attachments** using the official **Bot API** (Python + discord.py).
 
 English UI by default · **Traditional Chinese (繁體中文)** available in the app language menu.
 
 > **Bot tokens only.** Do not use user-account tokens (self-bots).
 
----
-
-## Platform support
-
-| OS | Supported |
-|----|-----------|
-| **Windows 10 / 11** | Yes |
-| **macOS** | **No** — not supported |
-| **Linux** | **No** — not supported |
-
-This project is **Windows-only** (GUI launcher `run_gui.bat`, packaging, and tested runtime).  
-There is **no macOS app, no Homebrew formula, and no Linux support**.
+Built and tested on **Windows 10 / 11**. Launch with `run_gui.bat`.
 
 ---
 
-## Quick start (Windows)
+## Quick start
 
 1. **Code → Download ZIP** and extract the whole folder  
-2. Install [Python 3.10+](https://www.python.org/downloads/) with **Add python.exe to PATH**  
+2. Install [Python 3.10+](https://www.python.org/downloads/) and enable **Add python.exe to PATH**  
 3. Double-click **`run_gui.bat`** (first run installs dependencies)  
 4. Paste **Bot Token** + **Channel ID(s)** → **Start backup**  
 
-In-app **Tutorial** covers bot setup and intents.
+The in-app **Tutorial** covers bot setup and intents.
 
-### CLI (Windows)
+### CLI
 
 ```bat
 pip install -r requirements.txt
@@ -67,13 +56,14 @@ ChannelName/
 
 ## Requirements
 
-- **Windows 10 or 11**
-- Python **3.10+**
-- Bot with **Message Content Intent**, **View Channel**, **Read Message History**
+- Windows 10 or 11  
+- Python **3.10+**  
+- A Discord bot with **Message Content Intent**, **View Channel**, and **Read Message History**
 
-Saved bots / prefs (if any) live under `%USERPROFILE%\.discord_channel_backup\` — **not** in this repo.
+Local prefs / optional saved bots are stored under  
+`%USERPROFILE%\.discord_channel_backup\` (not in this repository).
 
-Optional: `pack_release.bat` builds a clean ZIP without `.venv`.
+Optional: run `pack_release.bat` to build a clean ZIP without `.venv`.
 
 ---
 
