@@ -3,38 +3,22 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Backup **Discord channel / thread history and attachments** using the official **Bot API** (Python + [discord.py](https://github.com/Rapptz/discord.py)).
+Backup **Discord channel / thread history and attachments** with the official **Bot API** (Python + discord.py).
 
-- Desktop **GUI** (`run_gui.bat` on Windows) or **CLI**
-- Full history (oldest → newest), images / GIFs / videos / files
-- Optional media subfolders, naming schemes, and rate-limit delays
-- **UI language:** English by default · **Traditional Chinese (繁體中文)** available in the app language menu
+English UI by default · **Traditional Chinese (繁體中文)** available in the app language menu.
 
-> **Bot tokens only.** Do not use user-account tokens (self-bots) — against Discord ToS.
+> **Bot tokens only.** Do not use user-account tokens (self-bots).
 
 ---
 
 ## Quick start (Windows)
 
-1. **Code → Download ZIP** (or clone this repo) and extract the whole folder  
+1. **Code → Download ZIP** and extract the whole folder  
 2. Install [Python 3.10+](https://www.python.org/downloads/) with **Add python.exe to PATH**  
-3. Double-click **`run_gui.bat`**  
-   - First run creates `.venv` and installs dependencies (1–3 min)  
-4. In the app: paste **Bot Token** + **Channel ID(s)** → **Start backup**  
-5. Optional: switch language to **繁體中文** via the top-bar dropdown (next to Developer Portal)
+3. Double-click **`run_gui.bat`** (first run installs dependencies)  
+4. Paste **Bot Token** + **Channel ID(s)** → **Start backup**  
 
-In-app **Tutorial** covers Bot setup, Message Content Intent, permissions, and Channel IDs — you do not need a long guide in this README.
-
-More detail for non-developers: [使用說明_下載後請看.md](./使用說明_下載後請看.md) (Traditional Chinese).
-
-### macOS / Linux
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python gui.py
-```
+In-app **Tutorial** covers bot setup and intents.
 
 ### CLI
 
@@ -44,28 +28,30 @@ python backup.py --token YOUR_BOT_TOKEN --channel CHANNEL_ID
 python backup.py --help
 ```
 
+### macOS / Linux
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python gui.py
+```
+
 ---
 
 ## Features
 
-| Feature | Description |
-|--------|-------------|
-| GUI | Progress, log, saved bots, delays, naming |
-| Languages | **English (default)**, Traditional Chinese |
-| Multi-channel | Batch several channel/thread IDs |
-| Output folder | Named after **channel/thread title** (not the snowflake ID) |
-| Media sort | Optional: `media/images`, `gifs`, `videos`, `audio`, `files` |
-| Naming schemes | Numbers, date-seq, full timestamp+name, etc. |
-| Delays | Optional sleep after file / message / between channels |
-| Resilience | Auto rate-limit handling, retries, checkpoints |
+| | |
+|--|--|
+| GUI + progress log | Multi-channel batch |
+| Folder named after channel/thread | Optional media folders (`images` / `gifs` / `videos` / …) |
+| Naming schemes & rate delays | Checkpoints, retries, rate-limit handling |
 
-### Output layout (example)
+**Output example**
 
 ```text
-YourChannelName/
+ChannelName/
   messages.json
-  media/                 # or media/images, media/gifs, ...
-  errors.log
+  media/   # or media/images, media/gifs, ...
 ```
 
 ---
@@ -73,40 +59,14 @@ YourChannelName/
 ## Requirements
 
 - Python **3.10+**
-- A Discord **bot** with:
-  - **Message Content Intent** enabled
-  - **View Channel** + **Read Message History** on target channels
-- Network access to Discord
+- Bot with **Message Content Intent**, **View Channel**, **Read Message History**
 
----
+Saved bots / prefs (if any) live under `~/.discord_channel_backup/` — **not** in this repo.
 
-## Project layout
-
-```text
-run_gui.bat / pack_release.bat
-gui.py · backup.py · core.py · i18n.py · bot_store.py · settings_store.py
-requirements.txt · LICENSE · SECURITY.md · CONTRIBUTING.md
-```
-
-Local prefs / optional encrypted saved bots live under the **user home directory**  
-(`~/.discord_channel_backup/`), **not** in this repo. Never commit tokens.
-
-Pack a clean ZIP for friends (no `.venv`):
-
-```bat
-pack_release.bat
-```
-
----
-
-## Security
-
-See [SECURITY.md](SECURITY.md). Reset any bot token that may have leaked.
+Optional: `pack_release.bat` builds a clean ZIP without `.venv`.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
-
-Provided as-is; you are responsible for complying with Discord’s Terms of Service and applicable law.
+MIT — see [LICENSE](LICENSE). See also [SECURITY.md](SECURITY.md).

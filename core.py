@@ -791,24 +791,6 @@ def unique_channel_out_dir(output_root: Path, channel_name: str) -> Path:
         n += 1
 
 
-def default_channel_out_dir(
-    output_root: Path,
-    channel_id: int,
-    stamp: Optional[str] = None,
-    channel_name: Optional[str] = None,
-) -> Path:
-    """
-    建立輸出目錄路徑。
-    優先使用 channel_name；若無名稱則 fallback（不應再依賴 ID 當主名稱）。
-    channel_id / stamp 保留參數以相容舊呼叫，stamp 不再寫入資料夾名。
-    """
-    if channel_name:
-        return unique_channel_out_dir(output_root, channel_name)
-    # 無名稱時仍避免只用裸 ID：用 unnamed + 短尾碼
-    tail = str(channel_id)[-4:] if channel_id else "0000"
-    return unique_channel_out_dir(output_root, f"unnamed-channel-{tail}")
-
-
 # ---------------------------------------------------------------------------
 # Single-channel backup (uses an already-ready client)
 # ---------------------------------------------------------------------------
@@ -1580,38 +1562,3 @@ async def run_batch_backup(
         level="info" if batch.all_ok else "warning",
     )
     return batch
-
-
-async def run_single_backup(
-    token: str,
-    channel_id: int,
-    out_dir: Path,
-    *,
-    resume: bool = False,
-    progress: Optional[ProgressCallback] = None,
-    cancel_event: Optional[asyncio.Event] = None,
-    options: Optional[BackupOptions] = None,
-) -> ChannelResult:
-    batch = await run_batch_backup(
-        token,
-        [ChannelJob(channel_id=channel_id, out_dir=out_dir, resume=resume)],
-        out_dir.parent,
-        progress=progress,
-        cancel_event=cancel_event,
-        options=options,
-    )
-    if batch.login_error:
-        return ChannelResult(
-            channel_id=channel_id,
-            success=False,
-            out_dir=out_dir,
-            error=batch.login_error,
-        )
-    if not batch.results:
-        return ChannelResult(
-            channel_id=channel_id,
-            success=False,
-            out_dir=out_dir,
-            error="無結果",
-        )
-    return batch.results[0]
