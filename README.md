@@ -1,38 +1,43 @@
-# Discord Channel Backup（Discord 頻道備份工具）
+# Discord Bot Media Downloader  
+### Discord 頻道／討論串 歷史訊息 + 媒體備份工具
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](#)
 
-Backup Discord channel / thread **history + attachments** with **Python + discord.py**.
+用官方 **Discord Bot API**（Python + discord.py）把指定頻道／討論串的：
 
-> **Bot Token only** (official Bot API). Do **not** use user tokens / self-bots (against Discord ToS).
+- 全部歷史訊息（由舊到新）
+- 圖片、GIF、影片、音訊與其他附件  
+
+下載到你的電腦，輸出 `messages.json` + `media/`。
+
+**繁體中文 / English 介面** · 圖形介面一鍵啟動 · 可調命名與限速 · 可選媒體分類資料夾。
+
+> 僅支援 **Bot Token**。請勿使用使用者帳號 Token（self-bot，違反 Discord ToS）。
 
 ---
 
-## ⭐ 一般使用者：下載後怎麼用（Windows）
+## ⭐ 給一般使用者（不會寫程式也 OK）
 
-GitHub 上的檔案**就是程式**（會看到很多文字／程式碼是正常的）。  
-你不是在網頁上「開啟 App」，而是**下載整包 → 解壓 → 雙擊 bat**。
+GitHub 頁面上的 `.py` 等**就是程式本體**（看到很多文字是正常的）。  
+使用方式是：**下載 → 解壓 → 雙擊 bat**，不是在網頁上按「執行」。
 
-### 步驟
+### Windows 三步驟
 
-1. **下載 ZIP**  
-   - 打開本倉庫頁面 → 綠色 **Code** → **Download ZIP**  
-   - 或：[使用說明_下載後請看.md](./使用說明_下載後請看.md)
-2. **解壓縮**到任意資料夾（整包解壓，不要只拿一個檔）
-3. 安裝 [Python 3.10+](https://www.python.org/downloads/)，勾選 **Add python.exe to PATH**
-4. 雙擊資料夾裡的 **`run_gui.bat`**  
-   - 第一次會自動安裝套件（1～3 分鐘）  
-   - 之後跳出圖形介面
-5. 依教學貼上 Bot Token、Channel ID，開始備份
+| 步驟 | 做什麼 |
+|:----:|--------|
+| **1** | 本頁綠色 **Code** → **Download ZIP**，解壓縮**整個**資料夾 |
+| **2** | 安裝 [Python 3.10+](https://www.python.org/downloads/)，勾選 **Add python.exe to PATH** |
+| **3** | 雙擊 **`run_gui.bat`** → 第一次自動裝套件 → 出現視窗後貼 Token / Channel ID 開始備份 |
 
-> 不需要會寫程式。不需要把 `.venv` 下載下來（bat 會自動建立）。
+更詳細圖文步驟： **[使用說明_下載後請看.md](./使用說明_下載後請看.md)**
 
-### 作者打包給朋友（離線 ZIP）
+### 作者要傳給朋友時
 
-雙擊專案內 **`打包給別人用.bat`**，會產生  
-`Discord-Bot-Media-Downloader-portable.zip`（不含 .venv）。  
-可把這個 ZIP 傳給別人，或上傳到 GitHub → **Releases**。
+雙擊 **`pack_release.bat`**（或 `打包給別人用.bat`）→ 產生  
+`Discord-Bot-Media-Downloader-portable.zip`（**不含** `.venv`）。  
+把 ZIP 傳出去，或上傳到 GitHub **Releases**。
 
 ---
 
@@ -40,16 +45,16 @@ GitHub 上的檔案**就是程式**（會看到很多文字／程式碼是正常
 
 | 功能 | 說明 |
 |------|------|
-| GUI | `gui.py` / `run_gui.bat`，含進度列與日誌 |
+| 一鍵 GUI | `run_gui.bat` 自動建 venv、裝依賴、開介面 |
 | 雙語 | 繁體中文 / English |
-| 首次教學 | 第一次啟動導覽；之後可手動重開 |
-| 多頻道批次 | 一次多個 Channel ID，登入一次依序備份 |
-| 輸出資料夾 | 以**頻道／討論串名稱**命名（不用 ID） |
+| 首次教學 | Bot 設定、Intent、權限、Channel ID |
+| 多頻道批次 | 多個 Channel ID，登入一次依序備份 |
+| 輸出命名 | 以**討論串／頻道名稱**當資料夾名 |
 | 媒體分類 | 可選 `images` / `gifs` / `videos` / `audio` / `files` |
-| 附件命名 | 下拉多種方案（純數字、日期-序號、完整…） |
-| 限速延遲 | 可調附件／訊息／頻道間秒數 |
-| 已存 Bot | 本機加密（使用者目錄，不進 git） |
-| CLI | `backup.py` |
+| 附件檔名 | 純數字、日期-序號、完整格式等（下拉選擇） |
+| 限速延遲 | 附件後 / 訊息後 / 頻道間可手動調秒數 |
+| 已存 Bot | 本機加密（在使用者目錄，不進 GitHub） |
+| CLI | `python backup.py` |
 | 容錯 | rate limit、重試、checkpoint、續傳 |
 
 ## 環境需求
@@ -258,20 +263,15 @@ python backup.py --token TOKEN --channel 111 --naming seq --quiet
 ## 專案結構
 
 ```
-discord-channel-backup/
-├── gui.py              # GUI + tutorial + i18n wiring
-├── backup.py           # CLI
-├── core.py             # Backup engine
-├── bot_store.py        # Encrypted saved bots (user home only)
-├── settings_store.py   # Non-secret prefs (user home only)
-├── i18n.py             # zh-TW / English strings
+Discord-Bot-Media-Downloader/
+├── run_gui.bat              # 使用者：雙擊啟動 GUI
+├── pack_release.bat         # 作者：打包 portable ZIP
+├── 打包給別人用.bat         # 同上（呼叫 pack_release）
+├── 使用說明_下載後請看.md   # 給一般人的下載說明
+├── gui.py / backup.py / core.py / i18n.py ...
 ├── requirements.txt
-├── run_gui.bat         # Windows launcher
-├── LICENSE
-├── SECURITY.md
-├── CONTRIBUTING.md
-├── README.md
-└── .gitignore
+├── LICENSE · SECURITY.md · CONTRIBUTING.md
+└── README.md
 ```
 
 ## 進度與容錯
