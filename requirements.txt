@@ -1,0 +1,5 @@
+discord.py>=2.3.2,<3
+tqdm>=4.66.0
+aiohttp>=3.9.0
+customtkinter>=5.2.0
+cryptography>=42.0.0

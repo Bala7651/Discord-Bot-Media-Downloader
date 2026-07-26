@@ -1,0 +1,55 @@
+# --- Secrets & local user data (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+token*
+*token*.txt
+*credentials*
+
+# App data is stored under the user home directory, not this repo:
+#   %USERPROFILE%\.discord_channel_backup\   (Windows)
+#   ~/.discord_channel_backup/               (macOS/Linux)
+# Still ignore if someone copies it here by mistake:
+.discord_channel_backup/
+bots.enc.json
+bots.json
+.settings.json
+
+# --- Runtime / backups / logs ---
+backups/
+**/media/
+messages.json
+*.log
+launch.log
+gui_crash.log
+gui_stderr.txt
+gui_stdout.txt
+*.part
+
+# --- Python ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
